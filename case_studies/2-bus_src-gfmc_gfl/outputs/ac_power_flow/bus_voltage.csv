@@ -1,0 +1,3 @@
+id,bus,timepoint,voltage_magnitude_pu,voltage_angle_deg
+0,lima,timepoint_1,1.0,0.0
+1,canberra,timepoint_1,1.2100719910094804,17.17754329243504

@@ -1,0 +1,4 @@
+id,type,generator,timepoint,active_power_MW,reactive_power_MVAR
+0,gfmi_c,solar1,timepoint_1,32.929458802158436,-86.93630017310645
+0,gfmi_d,battery,timepoint_1,80.0,50.42029407376477
+0,gfli_a,wind,timepoint_1,-100.0,50.49189446836235

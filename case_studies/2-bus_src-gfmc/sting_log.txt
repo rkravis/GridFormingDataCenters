@@ -1,0 +1,515 @@
+2026-05-06 19:48:28
+   ______   __ 
+  / __/ /__/ /_  _____ _
+ _\ \/ __/ _// \/ / _ `/
+/___/__///  /_/\_/\_, /
+       /         /___/  
+
+Version: 0.1.0 (2025-11-12)
+========================================
+
+> Initializing system ...
+ System initialization completed.
+> Loading system components from CSV files from /Users/psernatorre/Documents/GridFormingDataCenters/case_studies/2-bus_src-gfm ...
+ - 'infinite_sources.csv' ... 
+   Added 1 'infinite_sources' 
+ - 'gfmi_c.csv' ... 
+   Added 1 'gfmi_c' 
+ - 'buses.csv' ... 
+   Added 2 'buses' 
+ - 'loads.csv' ... 
+   Added 2 'loads' 
+ - 'lines.csv' ... 
+   Added 1 'lines' 
+ - 'timepoints.csv' ... 
+   Added 1 'timepoints' 
+> Post system initialization completed in 0.00 seconds.
+> Completed in: 0.00 seconds. 
+
+
+>> Starting AC power flow...
+
+Model settings: ModelSettings(generator_type_costs='linear', power_flow_formulation='polar', load_shedding=True, write_model_file=False)
+Solver settings: SolverSettings(solver_name='ipopt', tee=True, solver_options=None)
+> Initializing construction of the optimization model for capacity expansion ... 
+ - Decision variables of active power and reactive power for generators
+   Size: 4 variables
+ - Constraints for generator active power dispatch limits
+   Size: 2 constraints
+ - Constraints for generator reactive power dispatch limits
+   Size: 2 constraints
+ - Expressions for dispatch of active power at any bus
+   Size: 2 expressions
+ - Expressions for dispatch of reactive power at any bus
+   Size: 2 expressions
+ - Expressions for generation cost per timepoint
+   Size: 1 expressions
+> Initializing construction of ac power flow variables, constraints, and costs ... 
+ - Processing load data for power flow model
+ - Decision variables of bus voltage magnitudes and angles
+   Size: 4 variables
+ - Decision variables of active load shedding
+   Size: 2 variables
+ - Decision variables of reactive load shedding
+   Size: 2 variables
+ - Power flow per bus expressions
+ - Active power balance at each bus
+   Size: 2 constraints
+ - Reactive power balance at each bus
+   Size: 2 constraints
+ - Load shedding cost expressions
+   Size: 1 expressions
+ - Load shedding cost expressions
+   Size: 1 expressions
+> Completed in 0.01 seconds. 
+
+> Completed in 0.00 seconds. 
+
+> Completed in 0.01 seconds. 
+
+> Solving ac power flow model...
+Ipopt 3.14.19: 
+
+******************************************************************************
+This program contains Ipopt, a library for large-scale nonlinear optimization.
+ Ipopt is released as open source code under the Eclipse Public License (EPL).
+         For more information visit https://github.com/coin-or/Ipopt
+******************************************************************************
+
+This is Ipopt version 3.14.19, running with linear solver MUMPS 5.6.2.
+
+Number of nonzeros in equality constraint Jacobian...:       17
+Number of nonzeros in inequality constraint Jacobian.:        3
+Number of nonzeros in Lagrangian Hessian.............:        3
+
+Total number of variables............................:       10
+                     variables with only lower bounds:        4
+                variables with lower and upper bounds:        2
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:        5
+Total number of inequality constraints...............:        3
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        3
+        inequality constraints with only upper bounds:        0
+
+iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
+   0  3.9999960e+01 8.00e+01 3.96e+01  -1.0 0.00e+00    -  0.00e+00 0.00e+00   0
+   1  8.9725647e+00 7.95e+01 3.94e+01  -1.0 8.00e+01    -  1.22e-02 6.57e-03f  1
+   2  1.6238093e+00 7.72e+01 8.75e+01  -1.0 7.95e+01    -  7.44e-01 2.88e-02h  1
+   3  3.7098060e+00 3.23e+01 1.73e+04  -1.0 7.72e+01    -  4.57e-02 9.08e-01h  1
+   4  3.7361051e+00 1.55e+00 1.48e+03  -1.0 2.67e+01    -  2.99e-01 1.00e+00h  1
+   5  4.0057316e+00 5.97e-03 1.02e+01  -1.0 1.28e+00    -  9.88e-01 1.00e+00h  1
+   6  3.9998487e+00 9.73e-05 8.83e-03  -1.0 1.88e-01    -  1.00e+00 1.00e+00f  1
+   7  1.1312396e-01 5.20e-07 5.36e-05  -2.5 1.40e-02    -  1.00e+00 1.00e+00f  1
+   8  5.9769860e-03 6.88e-07 1.79e-06  -3.8 1.53e-02    -  1.00e+00 1.00e+00f  1
+   9  3.3796643e-05 3.27e-08 2.14e-08  -5.7 3.34e-03    -  1.00e+00 1.00e+00h  1
+iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
+  10 -3.9899764e-05 3.91e-10 2.90e-11  -8.6 3.65e-04    -  1.00e+00 1.00e+00h  1
+
+Number of Iterations....: 10
+
+                                   (scaled)                 (unscaled)
+Objective...............:  -3.9899763847699206e-06   -3.9899763847699202e-05
+Dual infeasibility......:   2.9034571796262137e-11    2.9034571796262137e-10
+Constraint violation....:   2.3391304589208171e-10    3.9124614659158402e-10
+Variable bound violation:   9.9749409655847960e-09    9.9749409655847960e-09
+Complementarity.........:   3.8428940643275873e-09    3.8428940643275870e-08
+Overall NLP error.......:   3.8428940643275873e-09    3.8428940643275870e-08
+
+
+Number of objective function evaluations             = 11
+Number of objective gradient evaluations             = 11
+Number of equality constraint evaluations            = 11
+Number of inequality constraint evaluations          = 11
+Number of equality constraint Jacobian evaluations   = 11
+Number of inequality constraint Jacobian evaluations = 11
+Number of Lagrangian Hessian evaluations             = 10
+Total seconds in IPOPT                               = 0.002
+
+EXIT: Optimal Solution Found.
+
+Could not load duals, i.e., shadow prices, from solver.
+> Time spent by solver: 0.02 seconds.
+> Solver finished with status: ok, termination condition: optimal.
+> Objective value: -3.98997638476992e-05. 
+
+> Initializing export all results to CSV files ... 
+- Directory: /Users/psernatorre/Documents/GridFormingDataCenters/case_studies/2-bus_src-gfm/outputs/ac_power_flow
+> Initializing export generator dispatch results to CSV files ... 
+> Completed in 0.00 seconds. 
+
+> Initializing export power flow results to CSV files ... 
+> Completed in 0.00 seconds. 
+
+> Completed in 0.01 seconds. 
+
+> Add branches and shunts from dissecting lines:
+  - Lines with no series compensation
+... ok.
+
+Modal analysis results:
+shape: (19, 5)
+┌───────────┬───────────┬──────────────────────┬──────────────────┬───────────────────────┐
+│ real      ┆ imag      ┆ natural_frequency_hz ┆ damping_ratio_pu ┆ time_constant_seconds │
+│ ---       ┆ ---       ┆ ---                  ┆ ---              ┆ ---                   │
+│ f64       ┆ f64       ┆ f64                  ┆ f64              ┆ f64                   │
+╞═══════════╪═══════════╪══════════════════════╪══════════════════╪═══════════════════════╡
+│ -4.321    ┆ 0.698     ┆ 0.697                ┆ 0.987            ┆ 0.2314                │
+│ -4.321    ┆ -0.698    ┆ 0.697                ┆ 0.987            ┆ 0.2314                │
+│ -19.414   ┆ 376.269   ┆ 59.965               ┆ 0.052            ┆ 0.0515                │
+│ -19.414   ┆ -376.269  ┆ 59.965               ┆ 0.052            ┆ 0.0515                │
+│ -65.905   ┆ 0.0       ┆ 10.489               ┆ 1.0              ┆ 0.0152                │
+│ …         ┆ …         ┆ …                    ┆ …                ┆ …                     │
+│ -1000.0   ┆ 0.0       ┆ 159.155              ┆ 1.0              ┆ 0.001                 │
+│ -1271.429 ┆ 4404.988  ┆ 729.695              ┆ 0.277            ┆ 0.0008                │
+│ -1271.429 ┆ -4404.988 ┆ 729.695              ┆ 0.277            ┆ 0.0008                │
+│ -1653.37  ┆ 5937.579  ┆ 980.948              ┆ 0.268            ┆ 0.0006                │
+│ -1653.37  ┆ -5937.579 ┆ 980.948              ┆ 0.268            ┆ 0.0006                │
+└───────────┴───────────┴──────────────────────┴──────────────────┴───────────────────────┘
+
+>> Run completed in 0.05 seconds.
+
+2026-05-06 19:48:28
+   ______   __ 
+  / __/ /__/ /_  _____ _
+ _\ \/ __/ _// \/ / _ `/
+/___/__///  /_/\_/\_, /
+       /         /___/  
+
+Version: 0.1.0 (2025-11-12)
+========================================
+
+> Initializing system ...
+ System initialization completed.
+> Loading system components from CSV files from /Users/psernatorre/Documents/GridFormingDataCenters/case_studies/2-bus_src-gfm ...
+ - 'infinite_sources.csv' ... 
+   Added 1 'infinite_sources' 
+ - 'gfmi_c.csv' ... 
+   Added 1 'gfmi_c' 
+ - 'buses.csv' ... 
+   Added 2 'buses' 
+ - 'loads.csv' ... 
+   Added 2 'loads' 
+ - 'lines.csv' ... 
+   Added 1 'lines' 
+ - 'timepoints.csv' ... 
+   Added 1 'timepoints' 
+> Post system initialization completed in 0.00 seconds.
+> Completed in: 0.00 seconds. 
+
+
+>> Starting AC power flow...
+
+Model settings: ModelSettings(generator_type_costs='linear', power_flow_formulation='polar', load_shedding=True, write_model_file=False)
+Solver settings: SolverSettings(solver_name='ipopt', tee=True, solver_options=None)
+> Initializing construction of the optimization model for capacity expansion ... 
+ - Decision variables of active power and reactive power for generators
+   Size: 4 variables
+ - Constraints for generator active power dispatch limits
+   Size: 2 constraints
+ - Constraints for generator reactive power dispatch limits
+   Size: 2 constraints
+ - Expressions for dispatch of active power at any bus
+   Size: 2 expressions
+ - Expressions for dispatch of reactive power at any bus
+   Size: 2 expressions
+ - Expressions for generation cost per timepoint
+   Size: 1 expressions
+> Initializing construction of ac power flow variables, constraints, and costs ... 
+ - Processing load data for power flow model
+ - Decision variables of bus voltage magnitudes and angles
+   Size: 4 variables
+ - Decision variables of active load shedding
+   Size: 2 variables
+ - Decision variables of reactive load shedding
+   Size: 2 variables
+ - Power flow per bus expressions
+ - Active power balance at each bus
+   Size: 2 constraints
+ - Reactive power balance at each bus
+   Size: 2 constraints
+ - Load shedding cost expressions
+   Size: 1 expressions
+ - Load shedding cost expressions
+   Size: 1 expressions
+> Completed in 0.00 seconds. 
+
+> Completed in 0.00 seconds. 
+
+> Completed in 0.00 seconds. 
+
+> Solving ac power flow model...
+Ipopt 3.14.19: 
+
+******************************************************************************
+This program contains Ipopt, a library for large-scale nonlinear optimization.
+ Ipopt is released as open source code under the Eclipse Public License (EPL).
+         For more information visit https://github.com/coin-or/Ipopt
+******************************************************************************
+
+This is Ipopt version 3.14.19, running with linear solver MUMPS 5.6.2.
+
+Number of nonzeros in equality constraint Jacobian...:       17
+Number of nonzeros in inequality constraint Jacobian.:        3
+Number of nonzeros in Lagrangian Hessian.............:        3
+
+Total number of variables............................:       10
+                     variables with only lower bounds:        4
+                variables with lower and upper bounds:        2
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:        5
+Total number of inequality constraints...............:        3
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        3
+        inequality constraints with only upper bounds:        0
+
+iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
+   0  3.9999960e+01 8.00e+01 3.96e+01  -1.0 0.00e+00    -  0.00e+00 0.00e+00   0
+   1  8.9725647e+00 7.95e+01 3.94e+01  -1.0 8.00e+01    -  1.22e-02 6.57e-03f  1
+   2  1.6238093e+00 7.72e+01 8.75e+01  -1.0 7.95e+01    -  7.44e-01 2.88e-02h  1
+   3  3.7098060e+00 3.23e+01 1.73e+04  -1.0 7.72e+01    -  4.57e-02 9.08e-01h  1
+   4  3.7361051e+00 1.55e+00 1.48e+03  -1.0 2.67e+01    -  2.99e-01 1.00e+00h  1
+   5  4.0057316e+00 5.97e-03 1.02e+01  -1.0 1.28e+00    -  9.88e-01 1.00e+00h  1
+   6  3.9998487e+00 9.73e-05 8.83e-03  -1.0 1.88e-01    -  1.00e+00 1.00e+00f  1
+   7  1.1312396e-01 5.20e-07 5.36e-05  -2.5 1.40e-02    -  1.00e+00 1.00e+00f  1
+   8  5.9769860e-03 6.88e-07 1.79e-06  -3.8 1.53e-02    -  1.00e+00 1.00e+00f  1
+   9  3.3796643e-05 3.27e-08 2.14e-08  -5.7 3.34e-03    -  1.00e+00 1.00e+00h  1
+iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
+  10 -3.9899764e-05 3.91e-10 2.90e-11  -8.6 3.65e-04    -  1.00e+00 1.00e+00h  1
+
+Number of Iterations....: 10
+
+                                   (scaled)                 (unscaled)
+Objective...............:  -3.9899763847699206e-06   -3.9899763847699202e-05
+Dual infeasibility......:   2.9034571796262137e-11    2.9034571796262137e-10
+Constraint violation....:   2.3391304589208171e-10    3.9124614659158402e-10
+Variable bound violation:   9.9749409655847960e-09    9.9749409655847960e-09
+Complementarity.........:   3.8428940643275873e-09    3.8428940643275870e-08
+Overall NLP error.......:   3.8428940643275873e-09    3.8428940643275870e-08
+
+
+Number of objective function evaluations             = 11
+Number of objective gradient evaluations             = 11
+Number of equality constraint evaluations            = 11
+Number of inequality constraint evaluations          = 11
+Number of equality constraint Jacobian evaluations   = 11
+Number of inequality constraint Jacobian evaluations = 11
+Number of Lagrangian Hessian evaluations             = 10
+Total seconds in IPOPT                               = 0.002
+
+EXIT: Optimal Solution Found.
+
+Could not load duals, i.e., shadow prices, from solver.
+> Time spent by solver: 0.02 seconds.
+> Solver finished with status: ok, termination condition: optimal.
+> Objective value: -3.98997638476992e-05. 
+
+> Initializing export all results to CSV files ... 
+- Directory: /Users/psernatorre/Documents/GridFormingDataCenters/case_studies/2-bus_src-gfm/outputs/ac_power_flow
+> Initializing export generator dispatch results to CSV files ... 
+> Completed in 0.00 seconds. 
+
+> Initializing export power flow results to CSV files ... 
+> Completed in 0.00 seconds. 
+
+> Completed in 0.01 seconds. 
+
+> Add branches and shunts from dissecting lines:
+  - Lines with no series compensation
+... ok.
+
+Modal analysis results:
+shape: (19, 5)
+┌───────────┬───────────┬──────────────────────┬──────────────────┬───────────────────────┐
+│ real      ┆ imag      ┆ natural_frequency_hz ┆ damping_ratio_pu ┆ time_constant_seconds │
+│ ---       ┆ ---       ┆ ---                  ┆ ---              ┆ ---                   │
+│ f64       ┆ f64       ┆ f64                  ┆ f64              ┆ f64                   │
+╞═══════════╪═══════════╪══════════════════════╪══════════════════╪═══════════════════════╡
+│ -4.321    ┆ 0.698     ┆ 0.697                ┆ 0.987            ┆ 0.2314                │
+│ -4.321    ┆ -0.698    ┆ 0.697                ┆ 0.987            ┆ 0.2314                │
+│ -19.414   ┆ 376.269   ┆ 59.965               ┆ 0.052            ┆ 0.0515                │
+│ -19.414   ┆ -376.269  ┆ 59.965               ┆ 0.052            ┆ 0.0515                │
+│ -65.905   ┆ 0.0       ┆ 10.489               ┆ 1.0              ┆ 0.0152                │
+│ …         ┆ …         ┆ …                    ┆ …                ┆ …                     │
+│ -1000.0   ┆ 0.0       ┆ 159.155              ┆ 1.0              ┆ 0.001                 │
+│ -1271.429 ┆ 4404.988  ┆ 729.695              ┆ 0.277            ┆ 0.0008                │
+│ -1271.429 ┆ -4404.988 ┆ 729.695              ┆ 0.277            ┆ 0.0008                │
+│ -1653.37  ┆ 5937.579  ┆ 980.948              ┆ 0.268            ┆ 0.0006                │
+│ -1653.37  ┆ -5937.579 ┆ 980.948              ┆ 0.268            ┆ 0.0006                │
+└───────────┴───────────┴──────────────────────┴──────────────────┴───────────────────────┘
+> Initializing construction and solution of differential equations for EMT simulation ... 
+ - Writing EMT simulation results in /Users/psernatorre/Documents/GridFormingDataCenters/case_studies/2-bus_src-gfm/outputs/simulation_emt
+ - Plotting EMT simulation results in /Users/psernatorre/Documents/GridFormingDataCenters/case_studies/2-bus_src-gfm/outputs/simulation_emt
+> Completed in 14.46 seconds. 
+
+2026-05-06 19:54:12
+   ______   __ 
+  / __/ /__/ /_  _____ _
+ _\ \/ __/ _// \/ / _ `/
+/___/__///  /_/\_/\_, /
+       /         /___/  
+
+Version: 0.1.0 (2025-11-12)
+========================================
+
+> Initializing system ...
+ System initialization completed.
+> Loading system components from CSV files from /Users/psernatorre/Documents/GridFormingDataCenters/case_studies/2-bus_src-gfm ...
+ - 'infinite_sources.csv' ... 
+   Added 1 'infinite_sources' 
+ - 'gfmi_c.csv' ... 
+   Added 1 'gfmi_c' 
+ - 'buses.csv' ... 
+   Added 2 'buses' 
+ - 'loads.csv' ... 
+   Added 2 'loads' 
+ - 'lines.csv' ... 
+   Added 1 'lines' 
+ - 'timepoints.csv' ... 
+   Added 1 'timepoints' 
+> Post system initialization completed in 0.00 seconds.
+> Completed in: 0.00 seconds. 
+
+
+>> Starting AC power flow...
+
+Model settings: ModelSettings(generator_type_costs='linear', power_flow_formulation='polar', load_shedding=True, write_model_file=False)
+Solver settings: SolverSettings(solver_name='ipopt', tee=True, solver_options=None)
+> Initializing construction of the optimization model for capacity expansion ... 
+ - Decision variables of active power and reactive power for generators
+   Size: 4 variables
+ - Constraints for generator active power dispatch limits
+   Size: 2 constraints
+ - Constraints for generator reactive power dispatch limits
+   Size: 2 constraints
+ - Expressions for dispatch of active power at any bus
+   Size: 2 expressions
+ - Expressions for dispatch of reactive power at any bus
+   Size: 2 expressions
+ - Expressions for generation cost per timepoint
+   Size: 1 expressions
+> Initializing construction of ac power flow variables, constraints, and costs ... 
+ - Processing load data for power flow model
+ - Decision variables of bus voltage magnitudes and angles
+   Size: 4 variables
+ - Decision variables of active load shedding
+   Size: 2 variables
+ - Decision variables of reactive load shedding
+   Size: 2 variables
+ - Power flow per bus expressions
+ - Active power balance at each bus
+   Size: 2 constraints
+ - Reactive power balance at each bus
+   Size: 2 constraints
+ - Load shedding cost expressions
+   Size: 1 expressions
+ - Load shedding cost expressions
+   Size: 1 expressions
+> Completed in 0.01 seconds. 
+
+> Completed in 0.00 seconds. 
+
+> Completed in 0.01 seconds. 
+
+> Solving ac power flow model...
+Ipopt 3.14.19: 
+
+******************************************************************************
+This program contains Ipopt, a library for large-scale nonlinear optimization.
+ Ipopt is released as open source code under the Eclipse Public License (EPL).
+         For more information visit https://github.com/coin-or/Ipopt
+******************************************************************************
+
+This is Ipopt version 3.14.19, running with linear solver MUMPS 5.6.2.
+
+Number of nonzeros in equality constraint Jacobian...:       17
+Number of nonzeros in inequality constraint Jacobian.:        3
+Number of nonzeros in Lagrangian Hessian.............:        3
+
+Total number of variables............................:       10
+                     variables with only lower bounds:        4
+                variables with lower and upper bounds:        2
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:        5
+Total number of inequality constraints...............:        3
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        3
+        inequality constraints with only upper bounds:        0
+
+iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
+   0  3.9999960e+01 8.00e+01 3.96e+01  -1.0 0.00e+00    -  0.00e+00 0.00e+00   0
+   1  8.9725647e+00 7.95e+01 3.94e+01  -1.0 8.00e+01    -  1.22e-02 6.57e-03f  1
+   2  1.6238093e+00 7.72e+01 8.75e+01  -1.0 7.95e+01    -  7.44e-01 2.88e-02h  1
+   3  3.7098060e+00 3.23e+01 1.73e+04  -1.0 7.72e+01    -  4.57e-02 9.08e-01h  1
+   4  3.7361051e+00 1.55e+00 1.48e+03  -1.0 2.67e+01    -  2.99e-01 1.00e+00h  1
+   5  4.0057316e+00 5.97e-03 1.02e+01  -1.0 1.28e+00    -  9.88e-01 1.00e+00h  1
+   6  3.9998487e+00 9.73e-05 8.83e-03  -1.0 1.88e-01    -  1.00e+00 1.00e+00f  1
+   7  1.1312396e-01 5.20e-07 5.36e-05  -2.5 1.40e-02    -  1.00e+00 1.00e+00f  1
+   8  5.9769860e-03 6.88e-07 1.79e-06  -3.8 1.53e-02    -  1.00e+00 1.00e+00f  1
+   9  3.3796643e-05 3.27e-08 2.14e-08  -5.7 3.34e-03    -  1.00e+00 1.00e+00h  1
+iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
+  10 -3.9899764e-05 3.91e-10 2.90e-11  -8.6 3.65e-04    -  1.00e+00 1.00e+00h  1
+
+Number of Iterations....: 10
+
+                                   (scaled)                 (unscaled)
+Objective...............:  -3.9899763847699206e-06   -3.9899763847699202e-05
+Dual infeasibility......:   2.9034571796262137e-11    2.9034571796262137e-10
+Constraint violation....:   2.3391304589208171e-10    3.9124614659158402e-10
+Variable bound violation:   9.9749409655847960e-09    9.9749409655847960e-09
+Complementarity.........:   3.8428940643275873e-09    3.8428940643275870e-08
+Overall NLP error.......:   3.8428940643275873e-09    3.8428940643275870e-08
+
+
+Number of objective function evaluations             = 11
+Number of objective gradient evaluations             = 11
+Number of equality constraint evaluations            = 11
+Number of inequality constraint evaluations          = 11
+Number of equality constraint Jacobian evaluations   = 11
+Number of inequality constraint Jacobian evaluations = 11
+Number of Lagrangian Hessian evaluations             = 10
+Total seconds in IPOPT                               = 0.002
+
+EXIT: Optimal Solution Found.
+
+Could not load duals, i.e., shadow prices, from solver.
+> Time spent by solver: 0.02 seconds.
+> Solver finished with status: ok, termination condition: optimal.
+> Objective value: -3.98997638476992e-05. 
+
+> Initializing export all results to CSV files ... 
+- Directory: /Users/psernatorre/Documents/GridFormingDataCenters/case_studies/2-bus_src-gfm/outputs/ac_power_flow
+> Initializing export generator dispatch results to CSV files ... 
+> Completed in 0.00 seconds. 
+
+> Initializing export power flow results to CSV files ... 
+> Completed in 0.01 seconds. 
+
+> Completed in 0.01 seconds. 
+
+> Add branches and shunts from dissecting lines:
+  - Lines with no series compensation
+... ok.
+
+Modal analysis results:
+shape: (19, 5)
+┌───────────┬───────────┬──────────────────────┬──────────────────┬───────────────────────┐
+│ real      ┆ imag      ┆ natural_frequency_hz ┆ damping_ratio_pu ┆ time_constant_seconds │
+│ ---       ┆ ---       ┆ ---                  ┆ ---              ┆ ---                   │
+│ f64       ┆ f64       ┆ f64                  ┆ f64              ┆ f64                   │
+╞═══════════╪═══════════╪══════════════════════╪══════════════════╪═══════════════════════╡
+│ -4.321    ┆ 0.698     ┆ 0.697                ┆ 0.987            ┆ 0.2314                │
+│ -4.321    ┆ -0.698    ┆ 0.697                ┆ 0.987            ┆ 0.2314                │
+│ -19.414   ┆ 376.269   ┆ 59.965               ┆ 0.052            ┆ 0.0515                │
+│ -19.414   ┆ -376.269  ┆ 59.965               ┆ 0.052            ┆ 0.0515                │
+│ -65.905   ┆ 0.0       ┆ 10.489               ┆ 1.0              ┆ 0.0152                │
+│ …         ┆ …         ┆ …                    ┆ …                ┆ …                     │
+│ -1000.0   ┆ 0.0       ┆ 159.155              ┆ 1.0              ┆ 0.001                 │
+│ -1271.429 ┆ 4404.988  ┆ 729.695              ┆ 0.277            ┆ 0.0008                │
+│ -1271.429 ┆ -4404.988 ┆ 729.695              ┆ 0.277            ┆ 0.0008                │
+│ -1653.37  ┆ 5937.579  ┆ 980.948              ┆ 0.268            ┆ 0.0006                │
+│ -1653.37  ┆ -5937.579 ┆ 980.948              ┆ 0.268            ┆ 0.0006                │
+└───────────┴───────────┴──────────────────────┴──────────────────┴───────────────────────┘
+
+>> Run completed in 0.06 seconds.
+

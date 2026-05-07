@@ -1,0 +1,2 @@
+line,from_bus,to_bus,existing_capacity_MW,active_power_from_bus_MW,reactive_power_from_bus_MVAR,active_power_to_bus_MW,reactive_power_to_bus_MVAR,active_power_loss_MW,reactive_power_loss_MVAR
+tx_1,lima,canberra,inf,-67.0705412078074,-36.444405714720205,79.99999999001716,50.420294063815355,12.929458782209764,13.97588834909515
