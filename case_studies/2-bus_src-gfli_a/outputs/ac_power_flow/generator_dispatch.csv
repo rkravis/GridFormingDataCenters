@@ -1,0 +1,3 @@
+id,type,generator,timepoint,active_power_MW,reactive_power_MVAR
+0,infinite_sources,gen1,t_1,90.330161366254,-47.158466219248325
+0,gfli_a,solar,t_1,-80.0,50.5150635535436

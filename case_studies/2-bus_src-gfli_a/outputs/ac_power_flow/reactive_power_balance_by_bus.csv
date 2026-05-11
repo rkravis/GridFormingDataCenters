@@ -1,0 +1,3 @@
+bus,timepoint,generator_dispatch_MVAR,load_shedding_MVAR,load_MVAR,net_line_leaving_flow_MVAR
+lima,t_1,-47.158466219248325,-9.974940964270631e-9,0.0,-47.158466229222995
+santiago,t_1,50.5150635535436,-9.974940965892335e-9,0.0,50.51506354356879
