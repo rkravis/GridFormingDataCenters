@@ -1,0 +1,5 @@
+id,type,generator,timepoint,active_power_MW,reactive_power_MVAR
+0,infinite_sources,bulk_grid,t_1,80.5164474050567,-29.455131242544333
+0,gfli_a,lima_load,t_1,-80.0,-1.0
+1,gfli_a,santiago_gen,t_1,80.0,1.0
+0,gfli_e,santiago_dc,t_1,-80.0,-1.0

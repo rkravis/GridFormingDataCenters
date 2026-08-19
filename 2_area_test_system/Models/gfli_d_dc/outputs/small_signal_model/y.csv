@@ -1,0 +1,15 @@
+name,component,type,init
+i_bus_D,infinite_sources_0,"",0.8051644740505669
+i_bus_Q,infinite_sources_0,"",0.2945513124254433
+i_bus_D,gfli_a_0,"",-0.8
+i_bus_Q,gfli_a_0,"",0.01
+i_bus_D,gfli_a_1,"",0.7914862850126032
+i_bus_Q,gfli_a_1,"",-0.021008514998516234
+i_bus_D,gfli_d_0,"",-0.7914862850126032
+i_bus_Q,gfli_d_0,"",0.021008514998516234
+v_bus_D,shunt_parallel_rc_0,"",1.0
+v_bus_Q,shunt_parallel_rc_0,"",0.0
+v_bus_D,shunt_parallel_rc_1,"",1.010380124747239
+v_bus_Q,shunt_parallel_rc_1,"",-0.01418418261634983
+i_br_D,branch_series_rl_0,"",0.0036644739508182723
+i_br_Q,branch_series_rl_0,"",0.15305131252519288

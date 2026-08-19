@@ -1,0 +1,11 @@
+name,component,type,init
+i_bus_D,infinite_sources_0,"",0.9020073911470728
+i_bus_Q,infinite_sources_0,"",0.24866879403325395
+i_bus_D,gfli_e_0,"",-0.8011593701792695
+i_bus_Q,gfli_e_0,"",-0.23740259148941745
+v_bus_D,shunt_parallel_rc_0,"",1.0
+v_bus_Q,shunt_parallel_rc_0,"",0.0
+v_bus_D,shunt_parallel_rc_1,"",1.0112480989656027
+v_bus_Q,shunt_parallel_rc_1,"",-0.04284237167949913
+i_br_D,branch_series_rl_0,"",0.8520073910473224
+i_br_Q,branch_series_rl_0,"",0.2420021271330014

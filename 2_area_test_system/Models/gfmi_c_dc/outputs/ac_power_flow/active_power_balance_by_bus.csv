@@ -1,0 +1,3 @@
+bus,timepoint,generator_dispatch_MW,load_shedding_MW,load_MW,net_line_leaving_flow_MW
+lima,t_1,0.5164474050566952,-9.974940966030683e-9,0.0,0.516447395081876
+santiago,t_1,0.0,-9.974940970114159e-9,0.0,-9.97484164644919e-9
