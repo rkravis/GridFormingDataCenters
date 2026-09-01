@@ -28,12 +28,10 @@ def square_oscillation(t):
     return -0.01*signal.square(2*np.pi*5*t) if t > 0.1 else 0.0
 
 inputs = {
-    'infinite_sources_0': {
-        'v_ref_d': step2
-        }, 
-    'gfli_a_0': {
-        'i_bus_d_ref': step1}
+    'switching_loads_0': {
+        'connect': lambda t: True if ((t >= 0.1) and (t <= 0.101)) else False,
     }
+}
 t_max = 2.0 # Simulation length
 
 # Construct system and small-signal model

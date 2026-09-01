@@ -34,6 +34,7 @@ inputs = {
     'gfli_a_0': {
         'i_bus_d_ref': step1}
     }
+inputs = {}
 t_max = 2.0 # Simulation length
 
 # Construct system and small-signal model

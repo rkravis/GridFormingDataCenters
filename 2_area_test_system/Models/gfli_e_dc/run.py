@@ -34,6 +34,11 @@ inputs = {
     'gfli_a_0': {
         'i_bus_d_ref': step1}
     }
+inputs = {
+    'switching_loads_0': {
+        'connect': lambda t: True if ((t >= 0.1) and (t <= 0.101)) else False,
+    }
+}
 t_max = 2.0 # Simulation length
 
 # Construct system and small-signal model

@@ -42,20 +42,19 @@ def smooth_step(t: float, t0: float, width: float, initial_value: float, final_v
 
 def w_s(t: float) -> float:
         return smooth_step(t, 0.5, 1e-1, 1, 1 - 0.005)
-
+    
 inputs = {
-    'infinite_sources_0': {
-        'v_ref_d': step1
-        }, 
-    'gfli_a_0': {
-        'i_bus_d_ref': step2}
+    'switching_loads_0': {
+        'connect': lambda t: True if ((t >= 0.1) and (t <= 0.11)) else False,
     }
+}
+
 t_max = 2.0 # Simulation length
 
 # Construct system and small-signal model
-_, ssm =  main.run_ssm(case_directory=case_dir)
+#_, ssm =  main.run_ssm(case_directory=case_dir)
 #ssm.simulate_ssm(t_max=t_max, inputs=inputs)
 # Run EMT simulation (not implemented yet for gfli_a)
-#main.run_emt(case_directory=case_dir, inputs=inputs, t_max=t_max)
+main.run_emt(case_directory=case_dir, inputs=inputs, t_max=t_max)
 
 print('\nok')

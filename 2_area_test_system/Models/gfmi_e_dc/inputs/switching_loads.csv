@@ -1,0 +1,2 @@
+name,bus,base_voltage_kV,base_frequency_Hz,r_pu,x_pu
+santiago_switching_load,santiago,230,60,1e-4,1e-6

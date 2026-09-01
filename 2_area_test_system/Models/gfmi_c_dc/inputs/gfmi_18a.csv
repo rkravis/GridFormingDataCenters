@@ -1,0 +1,2 @@
+name,bus,minimum_active_power_MW,maximum_active_power_MW,minimum_reactive_power_MVAR,maximum_reactive_power_MVAR,base_power_MVA,base_voltage_kV,base_frequency_Hz,cost_variable_USDperMWh,rf1_pu,xf1_pu,rsh_pu,csh_pu,txr_power_MVA,txr_voltage1_kV,txr_voltage2_kV,txr_r1_pu,txr_x1_pu,txr_r2_pu,txr_x2_pu,h_s,kd_pu,k_q_pu,w_q_puHz,kp_vc_pu,ki_vc_puHz,kffi_vc,kp_cc_pu,ki_cc_puHz,kffv_cc
+santiago_dc,santiago,-80,-80,-1,-1,1.00E+02,4.80E-01,60,0,0.02,0.1,10,0.1,1.00E+02,4.80E-01,2.30E+02,0.01,0.1,0.02,0.1,2,70,0.2,4000,0.562,484.989,0.8,4.77,60,0

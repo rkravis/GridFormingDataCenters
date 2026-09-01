@@ -15,10 +15,8 @@ import shutil
 import control as ct 
 import matplotlib.pyplot as plt 
 from pathlib import Path 
-
-
-## Folder names 
-
+import plotly.colors
+import re 
 
 ## Running and saving simulations      
         
@@ -54,7 +52,7 @@ def run_ssm_sim(output_dir, case, model_inputs, t_max, name, dc_string_name):
             stm = Path(f).stem 
             shutil.copy(case+"/outputs/small_signal_model/"+f, output_dir+'/ssm/')
         # Also copy RC shunt to get voltage data at buses  
-        shutil.copy(case+"/outputs/small_signal_model/shunt_parallel_rc_1_states.csv", output_dir+'/ssm/sh_voltage_'+name+".csv")
+        shutil.copy(case+"/outputs/small_signal_model/shunt_parallel_rc_1.csv", output_dir+'/ssm/sh_voltage_'+name+".csv")
     
         
 def run_multiple_emt(output_dir, inputs, model_inputs, t_max):
@@ -80,8 +78,7 @@ def run_emt(output_dir, case, model_inputs, t_max, name, dc_string_name):
         sfx = Path(f).suffix
         shutil.copy(case+"/outputs/simulation_emt/"+f, output_dir+'/emt/'+name+sfx)
     # Also copy RC shunt to get voltage data at buses  
-    shutil.copy(case+"/outputs/simulation_emt/shunt_parallel_rc_1_states.csv", output_dir+'/emt/sh_voltage_'+name+".csv")
-
+    shutil.copy(case+"/outputs/simulation_emt/shunt_parallel_rc_1.csv", output_dir+'/emt/sh_voltage_'+name+".csv")
     
 
 ## Plotting 
@@ -118,29 +115,55 @@ def make_overlay_plot(case_dir, state, inputs):
     Overlays state trajectories from different models 
     Assumes that state is a dict with name (model name) and value a dataframe containing all the state information 
     """
-    line_styles = ['solid', 'dot', 'dash']*10
-    i = 0
+    
     fig = go.Figure()
     for name, df in inputs.items():
         # Retrieve state 
-        fig.add_trace(go.Scatter(x=df["time"], y=df[state], name=name, mode='lines', line=dict(dash=line_styles[i]),showlegend=True))
-        i += 1
+        fig.add_trace(go.Scatter(x=df["time"], y=df[state], name=name, mode='lines', line=dict(dash=line_style_map[name], color=color_map[name]),showlegend=True))
+
 
     fig.update_xaxes(title_text='Time [s]')
     fig.update_yaxes(title_text=state)
-    fig.write_html(os.path.join(case_dir,state+"_overlay.html"))   
-   
+    
+    fig.update_layout(
+    font=dict(
+        size=18  # Changes all text size across the figure
+    ))
+    fig.update_layout(
+    legend=dict(
+        yanchor="top",
+        y=0.99,
+        xanchor="left",
+        x=0.01
+    ))
 
-def read_sim_results(case_dir, emt_toggle=False):
-    # EMT has slightly different states to SSM 
-    # SSM has everything in dq 
-    # EMT has everything in abc 
+    fig.write_html(os.path.join(case_dir,state+"_overlay.html"))   
+    fig.update_layout(
+        plot_bgcolor='white'
+    )
+    fig.update_xaxes(
+        mirror=True,
+        ticks='outside',
+        showline=True,
+        linecolor='black',
+        gridcolor='lightgrey'
+    )
+    fig.update_yaxes(
+        mirror=True,
+        ticks='outside',
+        showline=True,
+        linecolor='black',
+        gridcolor='lightgrey'
+    )
+    fig.write_image(os.path.join(case_dir, state+'_overlay.png'), width=1200,height=600,scale=2)
+   
+def read_all_sim_results(case_dir):
     # Read state traces into csv into dataframe for each model 
-    gfli_a = pl.read_csv(os.path.join(case_dir,"gfli_a_2_states.csv"))
-    gfli_d = pl.read_csv(os.path.join(case_dir,"gfli_d_0_states.csv"))
-    gfli_e = pl.read_csv(os.path.join(case_dir,"gfli_e_0_states.csv"))
-    gfmi_c = pl.read_csv(os.path.join(case_dir,"gfmi_c_0_states.csv"))
-    gfmi_e = pl.read_csv(os.path.join(case_dir,"gfmi_e_0_states.csv"))
+    gfli_a = pl.read_csv(os.path.join(case_dir,"gfli_a.csv"))
+    gfli_d = pl.read_csv(os.path.join(case_dir,"gfli_d.csv"))
+    gfli_e = pl.read_csv(os.path.join(case_dir,"gfli_e.csv"))
+    gfmi_c = pl.read_csv(os.path.join(case_dir,"gfmi_c.csv"))
+    gfmi_e = pl.read_csv(os.path.join(case_dir,"gfmi_e.csv"))
 
     # Read voltages at converter terminals into dataframe for each model 
     gfli_a_sh = pl.read_csv(os.path.join(case_dir,"sh_voltage_gfli_a.csv"))
@@ -149,41 +172,33 @@ def read_sim_results(case_dir, emt_toggle=False):
     gfmi_c_sh = pl.read_csv(os.path.join(case_dir,"sh_voltage_gfmi_c.csv"))
     gfmi_e_sh = pl.read_csv(os.path.join(case_dir,"sh_voltage_gfmi_e.csv"))
         
-    # convert relevant quantities from abc to dq 
-    if emt_toggle:
-        gfli_a = convert_abc_to_dq(gfli_a, ["i_bus", "v_sh", "i_vsc"], gfli_a["theta_pll"])
-        gfli_e = convert_abc_to_dq(gfli_e, ["i_bus", "v_sh", "i_vsc"], gfli_e["theta_pll"])
-        gfli_d = convert_abc_to_dq(gfli_d, ["i_bus", "v_sh", "i_vsc"], gfli_d["theta_pll"])
-        gfli_a_sh = convert_abc_to_dq(gfli_a_sh, ["v_bus"], gfli_a["theta_pll"]) # use converter frame
-        gfli_d_sh = convert_abc_to_dq(gfli_d_sh, ["v_bus"], gfli_d["theta_pll"]) # use converter frame
-        gfli_e_sh = convert_abc_to_dq(gfli_e_sh, ["v_bus"], gfli_e["theta_pll"]) # use converter frame
-        gfmi_c = convert_abc_to_dq(gfmi_c, ["i_bus", "v_sh", "i_vsc"], gfmi_c["angle_pc"])
-        gfmi_e = convert_abc_to_dq(gfmi_e, ["i_bus", "v_sh", "i_vsc"], gfmi_e["angle_pc"])
-        gfmi_c_sh = convert_abc_to_dq(gfmi_c_sh, ["v_bus"], gfmi_c["angle_pc"]) # use converter frame
-        gfmi_e_sh = convert_abc_to_dq(gfmi_e_sh, ["v_bus"], gfmi_e["angle_pc"]) # use converter frame
-    
-    else:
-        gfli_a = add_mag_and_angle(gfli_a, ['i_bus', 'v_lcl_sh', 'i_vsc'])
-        gfli_d = add_mag_and_angle(gfli_d, ['i_bus', 'v_lcl_sh', 'i_vsc'])
-        gfli_e = add_mag_and_angle(gfli_e, ['i_bus', 'v_lcl_sh', 'i_vsc'])
-        gfli_a_sh = add_mag_and_angle(gfli_a_sh, ["v_bus"],True) 
-        gfli_d_sh = add_mag_and_angle(gfli_d_sh, ["v_bus"],True) 
-        gfli_e_sh = add_mag_and_angle(gfli_e_sh, ["v_bus"],True) 
-        gfmi_c = add_mag_and_angle(gfmi_c, ["i_bus", "v_lcl_sh", "i_vsc"])
-        gfmi_e = add_mag_and_angle(gfmi_e, ["i_bus", "v_lcl_sh", "i_vsc"])
-        gfmi_c_sh = add_mag_and_angle(gfmi_c_sh, ["v_bus"],True) 
-        gfmi_e_sh = add_mag_and_angle(gfmi_e_sh, ["v_bus"],True)
+    gfli_a = add_mag_and_angle(gfli_a, ['i_bus', 'v_sh', 'i_vsc'])
+    gfli_d = add_mag_and_angle(gfli_d, ['i_bus', 'v_sh', 'i_vsc'])
+    gfli_e = add_mag_and_angle(gfli_e, ['i_bus', 'v_sh', 'i_vsc'])
+    gfli_a_sh = add_mag_and_angle(gfli_a_sh, ["v_bus"],True) 
+    gfli_d_sh = add_mag_and_angle(gfli_d_sh, ["v_bus"],True) 
+    gfli_e_sh = add_mag_and_angle(gfli_e_sh, ["v_bus"],True) 
+    gfmi_c = add_mag_and_angle(gfmi_c, ["i_bus", "v_sh", "i_vsc"])
+    gfmi_e = add_mag_and_angle(gfmi_e, ["i_bus", "v_sh", "i_vsc"])
+    gfmi_c_sh = add_mag_and_angle(gfmi_c_sh, ["v_bus"],True) 
+    gfmi_e_sh = add_mag_and_angle(gfmi_e_sh, ["v_bus"],True)
 
     return gfli_a, gfli_e, gfli_d, gfmi_c, gfmi_e, gfli_a_sh, gfli_d_sh, gfli_e_sh, gfmi_c_sh, gfmi_e_sh
 
+def read_single_model_sim_results(case_dir, name, sh_toggle=False):
+    if sh_toggle:
+        x = pl.read_csv(os.path.join(case_dir,f"sh_voltage_{name}.csv"))
+        x = add_mag_and_angle(x, ["v_bus"], True)
+    else:
+        x = pl.read_csv(os.path.join(case_dir,f"{name}.csv"))
+        x = add_mag_and_angle(x, ['i_bus', 'v_sh', 'i_vsc'])
+    return x 
 
 def make_transfer_fcn_plots(output_dir, inputs, input_label, output_label):
-    """ Output dir should contain files directly """
-    tf_list = []
-    plt.figure(figsize=(16,12))
+    """ Output dir should contain files directly. Plots multiple tf between specified inputs and outputs."""
     
-    line_styles = ['-', '--', ':']*10
-    i = 0
+    tf_list = []
+    plt.figure(figsize=(18,10))
     for name, io_idx in inputs.items():
         A = pl.read_csv(output_dir+name+"_A.csv")
         B = pl.read_csv(output_dir+name+"_B.csv")
@@ -198,39 +213,242 @@ def make_transfer_fcn_plots(output_dir, inputs, input_label, output_label):
         ss_system = ct.ss(Amat, Bmat, Cmat, Dmat, inputs=input_labels, outputs=output_labels, states=state_labels)
         tf_matrix = ct.tf(ss_system)
 
-        # print("\nInputs:", tf_matrix.input_labels)
-        # print("Outputs:", tf_matrix.output_labels)
+        print("\nInputs:", tf_matrix.input_labels)
+        print("Outputs:", tf_matrix.output_labels)
 
         tf_current = tf_matrix[io_idx[0], io_idx[1]]
-        #ct.bode_plot(tf_current, dB=True, label=name,linestyle=line_styles[i],title=f"Bode Plot: {input_label} → {output_label}")
-        #i += 1
         tf_list.append(tf_current)
     
-    fig = ct.bode_plot(tf_list, dB=True, label=list(inputs.keys()),linestyle=line_styles[i])
+    fig = ct.bode_plot(tf_list, dB=True, label=list(inputs.keys()))
     plt.suptitle(f"Bode Plot: {input_label} → {output_label}")
-    # 3. Access the Matplotlib figure and its axes
+    # Update line styles 
     fig = plt.gcf()
     axes = fig.axes  # axes[0] is Magnitude, axes[1] is Phase
-    line_styles = ['-', '--', '-.', '-', ':'] 
 
     # 4. Loop through the subplots and apply styles sequentially
+    i = 0
+    names = list(inputs.keys())
     for ax in axes:
         # ax.lines holds the lines plotted in this specific subplot
         for i, line in enumerate(ax.lines):
-            line.set_linestyle(line_styles[i])
+            line.set_linestyle(line_style_map_symbol[names[i]])
             line.set_linewidth(3)
 
     # Update legend to match the new styles
     axes[0].legend()
     plt.show()
-
-    # lines[0][0][3].set_linestyle('--')
-    # lines[0][0][4].set_linestyle('--')
-    # lines[1][0][3].set_linestyle('--')
-    # lines[1][0][4].set_linestyle('--')
-    
-    
-    plt.show()
-    # make sure a figs folder exists 
     os.makedirs(output_dir+'/figs', exist_ok=True)
     plt.savefig(output_dir+'/figs/bode_plot_'+input_label+'_to_'+output_label+'.png')
+
+def make_singular_value_plots(output_dir, inputs):
+    """ Output dir should contain files directly """
+
+    os.makedirs(output_dir+'/figs', exist_ok=True)
+    wrange = np.logspace(-2, 2, 200)
+    for name, io_idx in inputs.items():
+        plt.figure(figsize=(16,12))
+        A = pl.read_csv(output_dir+name+"_A.csv")
+        B = pl.read_csv(output_dir+name+"_B.csv")
+        Amat = A[:,1:].to_numpy()
+        Bmat = B[:,1:].to_numpy()
+        Cmat = np.eye(Amat.shape[0])
+        Dmat = np.zeros((Amat.shape[0], Bmat.shape[1]))
+        input_labels = B.columns[1:] 
+        output_labels = A.columns[1:] 
+        state_labels = output_labels 
+
+        ss_system = ct.ss(Amat, Bmat, Cmat, Dmat, inputs=input_labels, outputs=output_labels, states=state_labels)
+        
+        ct.singular_values_plot(ss_system,wrange,label=name, color=color_map_rgb[name])
+        plt.show()
+        plt.savefig(output_dir+f'/figs/singular_value_plot_{name}.png')
+
+
+def make_small_signal_plot(output_dir, inputs: list):
+    """ Plots maximum singular values at each frequency for each model."""
+    
+    os.makedirs(output_dir+'/figs', exist_ok=True)
+    omega = np.logspace(-2, 3, 500)  
+    fig = go.Figure()
+    for name in inputs:
+        A = pl.read_csv(output_dir+name+"_A.csv")
+        B = pl.read_csv(output_dir+name+"_B.csv")
+        Amat = A[:,1:].to_numpy()
+        Bmat = B[:,1:].to_numpy()
+        Cmat = np.eye(Amat.shape[0])
+        Dmat = np.zeros((Amat.shape[0], Bmat.shape[1]))
+        input_labels = B.columns[1:] 
+        output_labels = A.columns[1:] 
+        state_labels = output_labels 
+
+        ss_system = ct.ss(Amat, Bmat, Cmat, Dmat, inputs=input_labels, outputs=output_labels, states=state_labels)
+        
+        sigma, omega_out = ct.singular_values_response(ss_system, omega).magnitude, omega
+        sigma_max = np.asarray(sigma[0,:])[0]
+        
+        fig.add_trace(go.Scatter(x=omega_out, y=sigma_max, name=name, mode='lines', line=dict(color=color_map[name],dash=line_style_map[name],width=4)))
+        
+
+    fig.update_xaxes(type="log", dtick=1)
+    fig.update_xaxes(title_text='Freq (rad/s)')
+    fig.update_yaxes(title_text="Max singular value")
+    fig.update_layout(
+    font=dict(
+        size=18  # Changes all text size across the figure
+    ))
+    fig.update_layout(
+    legend=dict(
+        yanchor="top",
+        y=0.99,
+        xanchor="left",
+        x=0.01
+    ))
+    
+    fig.write_html(output_dir+f'/figs/max_sv_overlay.html')  
+    
+    fig.update_layout(
+        plot_bgcolor='white')
+    
+    fig.update_xaxes(
+        mirror=True,
+        ticks='outside',
+        showline=True,
+        linecolor='black',
+        gridcolor='lightgrey'
+    )
+    fig.update_yaxes(
+        mirror=True,
+        ticks='outside',
+        showline=True,
+        linecolor='black',
+        gridcolor='lightgrey'
+    )
+    
+    fig.write_image(output_dir+f'/figs/max_sv_overlay.png', width=1200,height=600,scale=2)
+       
+
+def make_frequency_response_plot(output_dir, inputs):
+    """ Plots f"""
+    
+    os.makedirs(output_dir+'/figs', exist_ok=True)
+    for name, io_idx in inputs.items():
+        plt.figure(figsize=(16,12))
+        A = pl.read_csv(output_dir+name+"_A.csv")
+        B = pl.read_csv(output_dir+name+"_B.csv")
+        Amat = A[:,1:].to_numpy()
+        Bmat = B[:,1:].to_numpy()
+        Cmat = np.eye(Amat.shape[0])
+        Dmat = np.zeros((Amat.shape[0], Bmat.shape[1]))
+        input_labels = B.columns[1:] 
+        output_labels = A.columns[1:] 
+        state_labels = output_labels 
+        
+        ss_system = ct.ss(Amat, Bmat, Cmat, Dmat, inputs=input_labels, outputs=output_labels, states=state_labels)
+        
+        ct.frequency_response(ss_system).plot(plot_phase=False, overlay_inputs=True, overlay_outputs=True, color=color_map_rgb[name])
+        
+        plt.show()
+        plt.savefig(output_dir+f'/figs/frequency_response_{name}.png')
+    
+def make_eigenvalue_comparison_plot(output_dir, inputs):
+    
+    """ Plots eigenvalues of each system in inputs overlaid."""
+    
+    fig = go.Figure()
+    for name in inputs:
+        A = pl.read_csv(output_dir+name+"_A.csv")
+        Amat = A[:,1:].to_numpy()
+        re_eig = np.linalg.eigvals(Amat).real 
+        imag_eig = np.linalg.eigvals(Amat).imag 
+        fig.add_trace(go.Scatter(x=re_eig, y=imag_eig, name=name, mode='markers', marker=dict(size=10, color=color_map[name], opacity=0.7)))
+        
+    fig.update_xaxes(title_text='Real')
+    fig.update_yaxes(title_text="Imag")    
+    fig.add_hline(
+    y=0, 
+    line_width=1, 
+    line_dash="solid",     # Options: "solid", "dot", "dash", "longdash", "dashdot", "longdashdot"
+    line_color="grey")
+    
+    fig.add_vline(
+    x=0, 
+    line_width=1, 
+    line_dash="solid",     # Options: "solid", "dot", "dash", "longdash", "dashdot", "longdashdot"
+    line_color="grey")
+    
+    fig.write_html(output_dir+f'/figs/eigenvalues_overlaid.html')  
+    
+    fig.update_layout(
+        plot_bgcolor='white')
+    
+    fig.update_xaxes(
+        mirror=True,
+        ticks='outside',
+        showline=True,
+        linecolor='black',
+        gridcolor='lightgrey'
+    )
+    fig.update_yaxes(
+        mirror=True,
+        ticks='outside',
+        showline=True,
+        linecolor='black',
+        gridcolor='lightgrey'
+    )
+    fig.write_image(output_dir+f'/figs/eigenvalues_overlaid.png')
+        
+
+        
+def choose_folder(directory):
+    # List all folders in the directory
+    folders = [f for f in os.listdir(directory) if os.path.isdir(os.path.join(directory, f))]
+
+    if not folders:
+        print("No folders found in the directory.")
+        return None
+
+    # Display the folders with a number
+    print("\nAvailable folders:")
+    for i, folder in enumerate(folders, start=1):
+        print(f"  {i}. {folder}")
+
+    # Ask the user to choose
+    while True:
+        try:
+            choice = int(input("\nEnter the number of the folder you want to select: "))
+            if 1 <= choice <= len(folders):
+                selected_folder = folders[choice - 1]
+                print(f"\nYou selected: {selected_folder}")
+                return os.path.join(directory, selected_folder)
+            else:
+                print(f"Please enter a number between 1 and {len(folders)}.")
+        except ValueError:
+            print("Invalid input. Please enter a number.")
+                   
+    
+# Plotting color dict / settings 
+color_map = {'gfli_a': plotly.colors.DEFAULT_PLOTLY_COLORS[0],
+             'gfli_d': plotly.colors.DEFAULT_PLOTLY_COLORS[1],
+             'gfli_e': plotly.colors.DEFAULT_PLOTLY_COLORS[2],
+             'gfmi_c': plotly.colors.DEFAULT_PLOTLY_COLORS[3],
+             'gfmi_e': plotly.colors.DEFAULT_PLOTLY_COLORS[4] 
+             }
+
+color_map_rgb = {}
+for k, v in color_map.items():
+    color_map_rgb[k] = tuple(np.array([int(s) for s in re.findall(r'\d+', v)])/255)
+    
+    
+line_style_map_symbol = {'gfli_a': '-',
+             'gfli_d': '-.',
+             'gfli_e': '--',
+             'gfmi_c': '-',
+             'gfmi_e': '--' 
+             }
+
+line_style_map = {'gfli_a': 'solid',
+             'gfli_d': 'dashdot',
+             'gfli_e': 'dash',
+             'gfmi_c': 'solid',
+             'gfmi_e': 'dash' 
+             }
