@@ -1,7 +1,4 @@
 """ 2 area system """
-
-import sys
-sys.path.append("/Users/ruthkravis/Documents/STING")
 # Import Python standard and third-party packages
 from pathlib import Path
 # Import sting package

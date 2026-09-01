@@ -40,3 +40,8 @@ To reproduce the case studies, follow the same steps:
 6. **Install a SDP solver**: Install a semi-definite programming solver, for example, sdpt3, mosek, etc. Then adquire a licence for that solver if needed. If you opt to install mosek (https://docs.mosek.com/11.0/install/installation.html), they can give a free academic licence (https://www.mosek.com/products/academic-licenses/).
 
 
+## Notes on package versions
+
+Use plotly version 5.24.1 and kaleido version 0.2.1 to make sure figure saving works.
+
+

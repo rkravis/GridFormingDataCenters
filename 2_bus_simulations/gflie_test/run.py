@@ -8,10 +8,6 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from scipy import signal 
 
-import sys
-sys.path.append('/Users/ruthkravis/Documents/STING')
-
-
 # Import sting package
 from sting import main
 from sting.utils.transformations import dq02abc, abc2dq0

@@ -1,9 +1,3 @@
-"""
-
-"""
-import sys 
-sys.path.append("/Users/ruthkravis/Documents/STING")
-
 # Import packages
 import os 
 import polars as pl
@@ -401,7 +395,7 @@ def make_eigenvalue_comparison_plot(output_dir, inputs):
         
 def choose_folder(directory):
     # List all folders in the directory
-    folders = [f for f in os.listdir(directory) if os.path.isdir(os.path.join(directory, f))]
+    folders = [f for f in os.listdir(directory) if os.path.isdir(os.path.join(directory, f)) and "Results" in f]
 
     if not folders:
         print("No folders found in the directory.")

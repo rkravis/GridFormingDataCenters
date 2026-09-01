@@ -6,10 +6,6 @@ Runs consecutive simulations applying the same perturbations to different 2 bus 
 from pathlib import Path
 import os 
 
-import sys 
-sys.path.append("/Users/ruthkravis/Documents/STING")
-sys.path.append("/Users/ruthkravis/Documents/Research/GFM_data_centers/GridFormingDataCenters")
-
 # Import sting package
 import numpy as np 
 from scipy import signal

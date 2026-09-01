@@ -1,7 +1,3 @@
-import sys 
-sys.path.append("/Users/ruthkravis/Documents/STING")
-sys.path.append("/Users/ruthkravis/Documents/Research/GFM_data_centers/GridFormingDataCenters")
-
 # Import packages
 import os 
 from pathlib import Path

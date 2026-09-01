@@ -1,8 +1,6 @@
 
 # Import Python standard and third-party packages
 from pathlib import Path
-import sys 
-sys.path.append("/Users/ruthkravis/Documents/STING")
 
 import numpy as np
 from scipy.linalg import eig, inv

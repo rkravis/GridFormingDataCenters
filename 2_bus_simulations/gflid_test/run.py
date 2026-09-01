@@ -4,9 +4,6 @@ from pathlib import Path
 import numpy as np
 from scipy import signal 
 
-import sys
-sys.path.append('/Users/ruthkravis/Documents/STING')
-
 # Import sting package
 from sting import main
 

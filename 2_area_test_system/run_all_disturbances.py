@@ -7,10 +7,6 @@ from pathlib import Path
 import os 
 from datetime import datetime  
 
-import sys 
-sys.path.append("/Users/ruthkravis/Documents/STING")
-sys.path.append("/Users/ruthkravis/Documents/Research/GFM_data_centers/GridFormingDataCenters")
-
 # Import sting package
 import numpy as np 
 from scipy import signal

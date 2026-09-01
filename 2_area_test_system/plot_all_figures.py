@@ -1,10 +1,3 @@
-"""
-Generates overlaid figures of response from different EMT data center models
-
-"""
-import sys 
-sys.path.append("/Users/ruthkravis/Documents/Research/GFM_data_centers/GridFormingDataCenters")
-
 # Import packages
 import os 
 import polars as pl
