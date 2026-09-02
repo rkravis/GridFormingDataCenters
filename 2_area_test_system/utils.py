@@ -1,4 +1,6 @@
 # Import packages
+import sys 
+sys.path.append("/Users/ruthkravis/Documents/STING")
 import os 
 import polars as pl
 import plotly.graph_objects as go
