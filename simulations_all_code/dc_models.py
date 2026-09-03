@@ -151,8 +151,8 @@ def base_system_strong(case_directory, dc_model):
     
     # Switching load
     switching_load = SwitchingLoad(
-        name="santiago_switching_load", 
-        bus="santiago",
+        name="lima_switching_load", 
+        bus="lima",
         base_voltage_kV=230, base_frequency_Hz=60,
         r_pu=.05, 
         x_pu=.05, 
