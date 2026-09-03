@@ -1,0 +1,10 @@
+name,component,type,init
+v_ref_d,voltage_source_4a_0,device,1.0015625054723274
+v_ref_q,voltage_source_4a_0,device,-4.2803422281257796e-19
+i_ref_d,gfli_23a_0,device,-0.5001550986564106
+i_ref_q,gfli_23a_0,device,0.010003101973128212
+v_dc_ref,gfli_23a_0,device,1.05
+v_s,gfli_23a_0,device,0.5
+i_load_ref,gfli_23a_0,device,0.3
+v_ground_D,constant_impedance_loads_0,device,0.0
+v_ground_Q,constant_impedance_loads_0,device,0.0

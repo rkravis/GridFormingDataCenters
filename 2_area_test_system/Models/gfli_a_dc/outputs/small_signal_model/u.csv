@@ -1,9 +1,0 @@
-name,component,type,init
-v_ref_d,voltage_source_4a_0,device,1.0009642921858617
-v_ref_q,voltage_source_4a_0,device,5.30501144602786e-19
-i_ref_d,gfli_13a_0,device,-0.8
-i_ref_q,gfli_13a_0,device,-0.006827163978787183
-i_ref_d,gfli_13a_1,device,0.8000308291545887
-i_ref_q,gfli_13a_1,device,0.019504966671760104
-i_ref_d,gfli_13a_2,device,-0.8000308291545887
-i_ref_q,gfli_13a_2,device,0.019504966671760316

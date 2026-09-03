@@ -1,0 +1,3 @@
+id,bus,timepoint,voltage_magnitude_pu,voltage_angle_deg
+0,lima,t1,1.0,0.0
+1,santiago,t1,0.999689898879713,-0.0561271602927892

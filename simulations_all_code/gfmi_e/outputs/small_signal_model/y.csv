@@ -1,0 +1,13 @@
+name,component,type,init
+i_bus_D,voltage_source_4a_0,"",1.000604348989498
+i_bus_Q,voltage_source_4a_0,"",-0.21004534841981307
+i_bus_D,gfmi_25a_0,"",-0.5001450596015301
+i_bus_Q,gfmi_25a_0,"",0.010493050903837725
+i_bus_D,constant_impedance_loads_0,"",-0.4999588771840105
+i_bus_Q,constant_impedance_loads_0,"",0.2005518972007696
+v_bus_D,shunt_parallel_rc_0,"",1.0
+v_bus_Q,shunt_parallel_rc_0,"",0.0
+v_bus_D,shunt_parallel_rc_1,"",0.9996894192167911
+v_bus_Q,shunt_parallel_rc_1,"",-0.000979299814057907
+i_br_D,branch_series_rl_0,"",1.000354348889897
+i_br_Q,branch_series_rl_0,"",-0.21054534831990165

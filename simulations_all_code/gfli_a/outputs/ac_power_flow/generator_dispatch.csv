@@ -1,0 +1,3 @@
+id,type,generator,timepoint,active_power_MW,reactive_power_MVAR
+0,voltage_source_4a,lima_source,t1,100.0604348989498,21.004534841981307
+0,gfli_13a,santiago_dc,t1,-50.0,-1.0
