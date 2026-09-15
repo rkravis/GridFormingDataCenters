@@ -1,5 +1,0 @@
-name,component,type,init
-v_ref_d,infinite_sources_0,device,0.996096541443444
-v_ref_q,infinite_sources_0,device,1.3220209384422043e-18
-i_bus_d_ref,gfli_a_0,device,-0.7903926051307938
-i_bus_q_ref,gfli_a_0,device,-0.2711011925951121
